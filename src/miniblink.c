@@ -24,6 +24,7 @@
 #include "led.h"
 #include "lcd.h"
 #include "colours.h"
+#include "cpu.h"
 
 #ifdef UNIT_TESTING
 #define main test_main
@@ -35,6 +36,8 @@
 int main(void)
 {
 	int i;
+
+	cpu_init();
 
 	lcd_init();
 	lcd_clear(MAGENTA);
