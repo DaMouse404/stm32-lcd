@@ -16,3 +16,7 @@
 
 void lcd_init(void);
 void lcd_clear(uint16_t colour);
+
+void lcd_address_set(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
+void lcd_write_data(uint16_t colour);
+

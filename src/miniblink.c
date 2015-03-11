@@ -23,6 +23,7 @@
 
 #include "led.h"
 #include "lcd.h"
+#include "lcd_shapes.h"
 #include "colours.h"
 #include "cpu.h"
 
@@ -35,17 +36,15 @@
 
 int main(void)
 {
-	int i;
-
 	cpu_init();
 
 	lcd_init();
 	lcd_clear(MAGENTA);
+	lcd_draw_circle(400, 100, 100, RED);
+
 
 	do {
-		for (i = 0; i < 1000000; i++) {
-			__asm__("nop");
-		}
+
 	} while (loop);
 
 	return 0;

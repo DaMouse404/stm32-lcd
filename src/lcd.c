@@ -3,17 +3,11 @@
 
 #include "lcd.h"
 
-void delay_1ms(void);
-void lcd_address_set(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
-void lcd_write_bus(uint16_t data);
-void lcd_write_data(uint16_t data);
-void lcd_write_register(uint16_t data);
-
 /*
  * 64Mhz clock / 64000 = 1000 = 1kHz :D
  * TODO: Hook up to real timers for more accurate timing
  */
-inline void delay_1ms(void)
+static inline void delay_1ms(void)
 {
 	uint16_t i;
 
@@ -22,17 +16,25 @@ inline void delay_1ms(void)
 	}
 }
 
-void lcd_address_set(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
+static void lcd_write_bus(uint16_t data) {
+	gpio_port_write(LCD_DATA_PORT, data);
+
+	gpio_clear(LCD_WR);
+	gpio_set(LCD_WR);
+}
+
+static void lcd_write_register(uint16_t data)
 {
-	lcd_write_register(0x02);
-	lcd_write_data(y1);
-	lcd_write_register(0x03);
-	lcd_write_data(x1);
-	lcd_write_register(0x06);
-	lcd_write_data(y2);
-	lcd_write_register(0x07);
-	lcd_write_data(x2);
-	lcd_write_register(0x0f);
+    gpio_clear(LCD_RS);
+
+	lcd_write_bus(data);
+}
+
+void lcd_write_data(uint16_t data)
+{
+	gpio_set(LCD_RS);
+
+	lcd_write_bus(data);
 }
 
 void lcd_init(void)
@@ -58,25 +60,17 @@ void lcd_init(void)
 	lcd_write_data(16);
 }
 
-void lcd_write_bus(uint16_t data) {
-	gpio_port_write(LCD_DATA_PORT, data);
-
-	gpio_clear(LCD_WR);
-	gpio_set(LCD_WR);
-}
-
-void lcd_write_register(uint16_t data)
+void lcd_address_set(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 {
-    gpio_clear(LCD_RS);
-
-	lcd_write_bus(data);
-}
-
-void lcd_write_data(uint16_t data)
-{
-	gpio_set(LCD_RS);
-
-	lcd_write_bus(data);
+	lcd_write_register(0x02);
+	lcd_write_data(y1);
+	lcd_write_register(0x03);
+	lcd_write_data(x1);
+	lcd_write_register(0x06);
+	lcd_write_data(y2);
+	lcd_write_register(0x07);
+	lcd_write_data(x2);
+	lcd_write_register(0x0f);
 }
 
 void lcd_clear(uint16_t color)
