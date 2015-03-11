@@ -3,7 +3,18 @@
 [![Build Status](https://travis-ci.org/DaMouse404/stm32-base.svg?branch=master)](https://travis-ci.org/DaMouse404/stm32-base)
 [![Coverage Status](https://coveralls.io/repos/DaMouse404/stm32-base/badge.svg?branch=master)](https://coveralls.io/r/DaMouse404/stm32-base?branch=master)
 
-Base repository for building firmware to upload to a STM32 Discovery board.
+Using an LCD with a STM32 Discovery board.
+
+## Wiring
+
+Using STM32F3Discovery and MD070SD:
+
+* Wire DBx to PDx
+* Wire PC0 to RD
+* Wire PC1 to WR
+* Wire PC2 to RS
+* Wire PC3 to REST
+* Wire PC4 to CS
 
 ## Dependencies
 This base image was created with Debian Testing and has the following dependencies:

@@ -22,6 +22,8 @@
 #include <libopencm3/stm32/gpio.h>
 
 #include "led.h"
+#include "lcd.h"
+#include "colours.h"
 
 #ifdef UNIT_TESTING
 #define main test_main
@@ -34,10 +36,10 @@ int main(void)
 {
 	int i;
 
-	led_setup();
+	lcd_init();
+	lcd_clear(MAGENTA);
 
 	do {
-		led_toggle();
 		for (i = 0; i < 1000000; i++) {
 			__asm__("nop");
 		}
