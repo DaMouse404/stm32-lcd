@@ -16,7 +16,8 @@ static inline void delay_1ms(void)
 	}
 }
 
-static void lcd_write_bus(uint16_t data) {
+static void lcd_write_bus(uint16_t data)
+{
 	gpio_port_write(LCD_DATA_PORT, data);
 
 	gpio_clear(LCD_WR);
@@ -25,7 +26,7 @@ static void lcd_write_bus(uint16_t data) {
 
 static void lcd_write_register(uint16_t data)
 {
-    gpio_clear(LCD_RS);
+	gpio_clear(LCD_RS);
 
 	lcd_write_bus(data);
 }
@@ -42,8 +43,16 @@ void lcd_init(void)
 	rcc_periph_clock_enable(RCC_GPIOD);
 	rcc_periph_clock_enable(RCC_GPIOC);
 
-	gpio_mode_setup(LCD_DATA_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LCD_DATA_PINS);
-	gpio_mode_setup(LCD_CTRL_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LCD_CTRL_PINS);
+	gpio_mode_setup(
+			LCD_DATA_PORT,
+			GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
+			LCD_DATA_PINS
+	);
+	gpio_mode_setup(
+			LCD_CTRL_PORT,
+			GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
+			LCD_CTRL_PINS
+	);
 
 	gpio_set(LCD_CS);
 	gpio_set(LCD_RD);
@@ -76,6 +85,7 @@ void lcd_address_set(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 void lcd_clear(uint16_t color)
 {
 	uint16_t i, j;
+
 	lcd_address_set(0, 0, LCD_WIDTH-1, LCD_HEIGHT-1);
 
 	for (i = 0; i < LCD_WIDTH; i++) {

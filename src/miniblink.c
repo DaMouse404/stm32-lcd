@@ -43,9 +43,7 @@ int main(void)
 	lcd_draw_circle(400, 100, 100, RED);
 
 
-	do {
-
-	} while (loop);
+	do {} while (loop);
 
 	return 0;
 }

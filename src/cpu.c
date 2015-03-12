@@ -2,6 +2,7 @@
 
 #include "cpu.h"
 
-void cpu_init(void) {
+void cpu_init(void)
+{
 	rcc_clock_setup_hsi(&hsi_8mhz[CLOCK_64MHZ]);
 }
