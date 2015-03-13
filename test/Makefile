@@ -14,7 +14,7 @@ DEFS 		+= -DUNIT_TESTING
 
 ################################################################################
 # Grab all _test.c files and translate to runners
-CFILES=$(shell find . -name \*_test.c)
+CFILES ?=$(shell find . -name \*_test.c)
 RUNNERS=$(patsubst %_test.c, %.bin, $(CFILES))
 
 all: clean $(RUNNERS)
