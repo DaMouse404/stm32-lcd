@@ -32,11 +32,11 @@ void lcd_draw_line_horiz(
 {
 	uint16_t x;
 
-	l += x1;
+	l += (x1 - 1);
 
-	lcd_address_set(x1, y1, x1+l, y1);
+	lcd_address_set(x1, y1, l, y1);
 
-	for (x = x1; x < l; ++x) {
+	for (x = x1; x <= l; ++x) {
 		lcd_write_data(colour);
 	}
 }

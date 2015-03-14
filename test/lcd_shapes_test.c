@@ -13,6 +13,17 @@ void lcd_address_set(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
     check_expected(y2);
 }
 void lcd_write_data(uint16_t colour) {
+	check_expected(colour);
+}
+
+static void test_draw_line_horiz() {
+	expect_value(lcd_address_set, x1,   4);
+	expect_value(lcd_address_set, y1,   5);
+	expect_value(lcd_address_set, x2,   9);
+	expect_value(lcd_address_set, y2,   5);
+	expect_value_count(lcd_write_data, colour, 0xF, 6);
+
+	lcd_draw_line_horiz(4, 5, 6, 0xF);
 }
 
 static void test_draw_circle() {
@@ -49,7 +60,7 @@ static void test_draw_circle() {
 int main(void)
 {
 	const UnitTest tests[] = {
-		unit_test(test_draw_circle)
+		unit_test(test_draw_line_horiz)
 	};
 	return run_tests(tests);
 }
