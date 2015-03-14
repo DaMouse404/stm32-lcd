@@ -16,9 +16,12 @@ void lcd_draw_font_char(
 ) {
 	uint8_t char_offset = character - font->start_char;
 	const FONT_CHAR_INFO *char_info = &font->char_info[char_offset];
-	const uint8_t *char_map = font->char_maps[char_info->offset];
+	const uint8_t *char_maps = *(font->char_maps);
 
-	uint16_t x, y, i, byte;
+	uint8_t bytes = (char_info->width/8) + 1;
+	uint16_t x, y, byte;
+	uint16_t offset;
+	uint8_t bit;
 
 	lcd_address_set(
 			x1, y1,
@@ -29,8 +32,10 @@ void lcd_draw_font_char(
 	for (y = 0; y < font->char_height; y++) {
 		for (x = 0; x < char_info->width; x++) {
 			byte = (uint8_t) (x / 8);
+			offset = char_info->offset + (y * bytes) + byte;
+			bit = x % 8;
 
-			if (char_map[y + byte] & (1 << (7-x))) {
+			if (char_maps[offset] & (1 << (7-bit))) {
 				lcd_write_data(colour);
 			} else {
 				lcd_write_data(background);

@@ -1804,11 +1804,11 @@ const FONT_CHAR_INFO monospac821BT_11ptDescriptors[] =
 // Font information for Monospac821 BT 11pt
 const FONT_INFO monospac821BT_11ptFontInfo =
 {
-	2, //  Character height
-	'!', //  Start character
-	'~', //  End character
-	2, //  Width, in pixels, of space character
-	monospac821BT_11ptDescriptors, //  Character descriptor array
-	monospac821BT_11ptBitmaps //  Character bitmap array
+	16,		//  Character height
+	'!',	//  Start character
+	'~',	//  End character
+	2,		//  Width, in pixels, of space character
+	monospac821BT_11ptDescriptors,	//  Character descriptor array
+	monospac821BT_11ptBitmaps		//  Character bitmap array
 };
 

@@ -15,6 +15,13 @@ static const uint8_t testBitmaps[] =
 	0xFE, // #######
 	0x82, // #     #
 	0x82, // #     #
+
+	/* @5 'I' (13 pixels wide) */
+	0xFF, 0xF8, // #############
+	0x07, 0x00, //      ###
+	0x07, 0x00, //      ###
+	0x07, 0x00, //      ###
+	0xFF, 0xF8, // #############
 };
 
 /* Character descriptors for Monospac821 BT 12pt */
@@ -22,6 +29,7 @@ static const uint8_t testBitmaps[] =
 static const FONT_CHAR_INFO testDescriptors[] =
 {
 	{7, 0}, 		/* H */
+	{13, 5}			/* I */
 };
 
 /* Font information for Monospac821 BT 12pt */
@@ -29,7 +37,7 @@ static const FONT_INFO testFontInfo =
 {
 	5, /*  Character height */
 	'H', /*  Start character */
-	'H', /*  End character */
+	'I', /*  End character */
 	2, /*  Width, in pixels, of space character */
 	testDescriptors, /*  Character descriptor array */
 	testBitmaps, /*  Character bitmap array */
@@ -44,6 +52,31 @@ void lcd_address_set(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
 
 void lcd_write_data(uint16_t colour) {
 	check_expected(colour);
+}
+
+static void test_draw_char_I() {
+	expect_value(lcd_address_set, x1, 10);
+	expect_value(lcd_address_set, y1, 10);
+	expect_value(lcd_address_set, x2, 22);
+	expect_value(lcd_address_set, y2, 14);
+
+	expect_value_count(lcd_write_data, colour, 0xF0, 13);
+
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+	expect_value_count(lcd_write_data, colour, 0xF0, 3);
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+	expect_value_count(lcd_write_data, colour, 0xF0, 3);
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+	expect_value_count(lcd_write_data, colour, 0xF0, 3);
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+
+	expect_value_count(lcd_write_data, colour, 0xF0, 13);
+
+	lcd_draw_font_char(10, 10, &testFontInfo, 'I', 0xF0, 0x0F);
 }
 
 static void test_draw_char_H() {
@@ -77,6 +110,7 @@ int main(void)
 {
 	const UnitTest tests[] = {
 		unit_test(test_draw_char_H),
+		unit_test(test_draw_char_I)
 	};
 	return run_tests(tests);
 }
