@@ -8,7 +8,7 @@ DEFS 		= -DSTM32F3
 
 ################################################################################
 # Coverage
-CFLAGS 		+= -O0 --coverage
+CFLAGS 		+= -O0 --coverage -g
 LDFLAGS 	+= -lgcov -lcmocka
 DEFS 		+= -DUNIT_TESTING
 
