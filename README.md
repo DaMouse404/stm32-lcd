@@ -1,7 +1,7 @@
-# STM32 Base
+# STM32 LCD Experimentation
 
-[![Build Status](https://travis-ci.org/DaMouse404/stm32-base.svg?branch=master)](https://travis-ci.org/DaMouse404/stm32-base)
-[![Coverage Status](https://coveralls.io/repos/DaMouse404/stm32-base/badge.svg?branch=master)](https://coveralls.io/r/DaMouse404/stm32-base?branch=master)
+[![Build Status](https://travis-ci.org/DaMouse404/stm32-lcd.svg?branch=master)](https://travis-ci.org/DaMouse404/stm32-lcd)
+[![Coverage Status](https://coveralls.io/repos/DaMouse404/stm32-lcd/badge.svg?branch=master)](https://coveralls.io/r/DaMouse404/stm32-lcd?branch=master)
 
 Using an LCD with a STM32 Discovery board.
 
