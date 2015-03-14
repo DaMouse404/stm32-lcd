@@ -24,8 +24,11 @@
 #include "led.h"
 #include "lcd.h"
 #include "lcd_shapes.h"
+#include "lcd_font.h"
 #include "colours.h"
 #include "cpu.h"
+
+#include "fonts/monospace.h"
 
 #ifdef UNIT_TESTING
 #define main test_main
@@ -39,9 +42,16 @@ int main(void)
 	cpu_init();
 
 	lcd_init();
-	lcd_clear(MAGENTA);
-	lcd_draw_circle(400, 100, 100, RED);
+	lcd_clear(GRAY);
+	lcd_draw_circle(50,  50,  25, RED);
+	lcd_draw_circle(50,  100, 25, WHITE);
+	lcd_draw_circle(100, 50,  25, RED);
+	lcd_draw_circle(100, 100, 25, WHITE);
 
+	lcd_draw_font_char(100, 50, &monospac821BT_11ptFontInfo, 'H', WHITE, BLACK);
+	lcd_draw_font_char(109, 50, &monospac821BT_11ptFontInfo, 'I', WHITE, BLACK);
+
+	lcd_draw_font_string(50, 50, &monospac821BT_11ptFontInfo, "Start Machine", WHITE, BLACK);
 
 	do {} while (loop);
 

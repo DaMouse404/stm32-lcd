@@ -6,3 +6,10 @@ void lcd_draw_font_char(
     char character,
     uint16_t colour, uint16_t background
 );
+
+void lcd_draw_font_string(
+	uint16_t x1, uint16_t y1,
+	const FONT_INFO *font,
+	char* str,
+	uint16_t colour, uint16_t background
+);

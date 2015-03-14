@@ -1,4 +1,5 @@
 #include <math.h>
+#include <string.h>
 
 #include "lcd.h"
 #include "lcd_font.h"
@@ -40,6 +41,34 @@ void lcd_draw_font_char(
 			} else {
 				lcd_write_data(background);
 			}
+		}
+	}
+}
+
+void lcd_draw_font_string(
+	uint16_t x1, uint16_t y1,
+	const FONT_INFO *font,
+	char *str,
+	uint16_t colour, uint16_t background
+) {
+	uint16_t len = strlen(str); //sizeof(str) / sizeof(char);
+	uint16_t x = 0;
+
+	uint16_t i;
+
+	uint8_t char_offset;
+	const FONT_CHAR_INFO *char_info;
+
+	for (i = 0; i < len; ++i) {
+		if (str[i] == ' ') {
+			x += font->space_width;
+		} else {
+			char_offset = str[i] - font->start_char;
+			char_info = &font->char_info[char_offset];
+
+			lcd_draw_font_char(x1+x, y1, font, str[i], colour, background);
+
+			x += char_info->width;
 		}
 	}
 }

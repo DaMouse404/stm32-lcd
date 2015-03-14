@@ -54,37 +54,7 @@ void lcd_write_data(uint16_t colour) {
 	check_expected(colour);
 }
 
-static void test_draw_char_I() {
-	expect_value(lcd_address_set, x1, 10);
-	expect_value(lcd_address_set, y1, 10);
-	expect_value(lcd_address_set, x2, 22);
-	expect_value(lcd_address_set, y2, 14);
-
-	expect_value_count(lcd_write_data, colour, 0xF0, 13);
-
-	expect_value_count(lcd_write_data, colour, 0x0F, 5);
-	expect_value_count(lcd_write_data, colour, 0xF0, 3);
-	expect_value_count(lcd_write_data, colour, 0x0F, 5);
-
-	expect_value_count(lcd_write_data, colour, 0x0F, 5);
-	expect_value_count(lcd_write_data, colour, 0xF0, 3);
-	expect_value_count(lcd_write_data, colour, 0x0F, 5);
-
-	expect_value_count(lcd_write_data, colour, 0x0F, 5);
-	expect_value_count(lcd_write_data, colour, 0xF0, 3);
-	expect_value_count(lcd_write_data, colour, 0x0F, 5);
-
-	expect_value_count(lcd_write_data, colour, 0xF0, 13);
-
-	lcd_draw_font_char(10, 10, &testFontInfo, 'I', 0xF0, 0x0F);
-}
-
-static void test_draw_char_H() {
-	expect_value(lcd_address_set, x1, 10);
-	expect_value(lcd_address_set, y1, 10);
-	expect_value(lcd_address_set, x2, 16);
-	expect_value(lcd_address_set, y2, 14);
-
+static void expect_H() {
 	expect_value_count(lcd_write_data, colour, 0xF0, 1);
 	expect_value_count(lcd_write_data, colour, 0x0F, 5);
 	expect_value_count(lcd_write_data, colour, 0xF0, 1);
@@ -102,6 +72,62 @@ static void test_draw_char_H() {
 	expect_value_count(lcd_write_data, colour, 0xF0, 1);
 	expect_value_count(lcd_write_data, colour, 0x0F, 5);
 	expect_value_count(lcd_write_data, colour, 0xF0, 1);
+}
+
+static void expect_I() {
+	expect_value_count(lcd_write_data, colour, 0xF0, 13);
+
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+	expect_value_count(lcd_write_data, colour, 0xF0, 3);
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+	expect_value_count(lcd_write_data, colour, 0xF0, 3);
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+	expect_value_count(lcd_write_data, colour, 0xF0, 3);
+	expect_value_count(lcd_write_data, colour, 0x0F, 5);
+
+	expect_value_count(lcd_write_data, colour, 0xF0, 13);
+}
+
+static void test_draw_string_HI() {
+	expect_value(lcd_address_set, x1, 10);
+	expect_value(lcd_address_set, y1, 10);
+	expect_value(lcd_address_set, x2, 16);
+	expect_value(lcd_address_set, y2, 14);
+
+	expect_H();
+
+	expect_value(lcd_address_set, x1, 17);
+	expect_value(lcd_address_set, y1, 10);
+	expect_value(lcd_address_set, x2, 29);
+	expect_value(lcd_address_set, y2, 14);
+
+	expect_I();
+
+	lcd_draw_font_string(10, 10, &testFontInfo, "HI", 0xF0, 0x0F);
+}
+
+static void test_draw_char_I() {
+	expect_value(lcd_address_set, x1, 10);
+	expect_value(lcd_address_set, y1, 10);
+	expect_value(lcd_address_set, x2, 22);
+	expect_value(lcd_address_set, y2, 14);
+
+	expect_I();
+
+	lcd_draw_font_char(10, 10, &testFontInfo, 'I', 0xF0, 0x0F);
+}
+
+static void test_draw_char_H() {
+	expect_value(lcd_address_set, x1, 10);
+	expect_value(lcd_address_set, y1, 10);
+	expect_value(lcd_address_set, x2, 16);
+	expect_value(lcd_address_set, y2, 14);
+
+	expect_H();
 
 	lcd_draw_font_char(10, 10, &testFontInfo, 'H', 0xF0, 0x0F);
 }
@@ -110,7 +136,8 @@ int main(void)
 {
 	const UnitTest tests[] = {
 		unit_test(test_draw_char_H),
-		unit_test(test_draw_char_I)
+		unit_test(test_draw_char_I),
+		unit_test(test_draw_string_HI)
 	};
 	return run_tests(tests);
 }
