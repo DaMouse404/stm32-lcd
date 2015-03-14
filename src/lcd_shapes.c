@@ -57,7 +57,7 @@ void lcd_draw_circle(
 	 * (sqr(x) + sqr(y)) > sqr(r) or 1/2 the square
 	 */
 	for (y = r; y >= 0; --y) {
-		for (x = r; x >= 0; --x) {
+		for (x = r; x > 0; --x) {
 			if ((sqr(x) + sqr(y)) <= rSqr) {
 				/*
 				 * Draw  line from centre-x to centre+x
