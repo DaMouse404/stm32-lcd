@@ -38,7 +38,7 @@ static const FONT_INFO testFontInfo =
 	5, /*  Character height */
 	'H', /*  Start character */
 	'I', /*  End character */
-	2, /*  Width, in pixels, of space character */
+	10, /*  Width, in pixels, of space character */
 	testDescriptors, /*  Character descriptor array */
 	testBitmaps, /*  Character bitmap array */
 };
@@ -93,6 +93,24 @@ static void expect_I() {
 }
 
 static void test_draw_string_HI() {
+	expect_value(lcd_address_set, x1, 10);
+	expect_value(lcd_address_set, y1, 10);
+	expect_value(lcd_address_set, x2, 16);
+	expect_value(lcd_address_set, y2, 14);
+
+	expect_H();
+
+	expect_value(lcd_address_set, x1, 27);
+	expect_value(lcd_address_set, y1, 10);
+	expect_value(lcd_address_set, x2, 39);
+	expect_value(lcd_address_set, y2, 14);
+
+	expect_I();
+
+	lcd_draw_font_string(10, 10, &testFontInfo, "H I", 0xF0, 0x0F);
+}
+
+static void test_draw_string_HI_with_space() {
 	expect_value(lcd_address_set, x1, 10);
 	expect_value(lcd_address_set, y1, 10);
 	expect_value(lcd_address_set, x2, 16);
