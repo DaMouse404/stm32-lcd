@@ -24,9 +24,15 @@ const clock_scale_t hsi_8mhz[CLOCK_END] = {
 };
 
 
-void rcc_clock_setup_hsi(const clock_scale_t *clock) {}
+void rcc_clock_setup_hsi(const clock_scale_t *clock) {
+    check_expected(clock);
+}
 
-static void test_cpu_init() {}
+static void test_cpu_init() {
+    expect_value(rcc_clock_setup_hsi, clock, &hsi_8mhz[CLOCK_64MHZ]);
+
+    cpu_init();
+}
 
 int main(void)
 {
