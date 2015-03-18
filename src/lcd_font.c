@@ -16,6 +16,7 @@ void lcd_draw_font_char(
 		uint16_t colour, uint16_t background
 ) {
 	uint8_t char_offset = character - font->start_char;
+
 	const FONT_CHAR_INFO *char_info = &font->char_info[char_offset];
 	const uint8_t *char_maps = *(font->char_maps);
 
@@ -51,7 +52,7 @@ void lcd_draw_font_string(
 	char *str,
 	uint16_t colour, uint16_t background
 ) {
-	uint16_t len = strlen(str); //sizeof(str) / sizeof(char);
+	uint16_t len = strlen(str);
 	uint16_t x = 0;
 
 	uint16_t i;

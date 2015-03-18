@@ -21,8 +21,8 @@ static void test_lcd_init() {}
 int main(void)
 {
 	const UnitTest tests[] = {
-        unit_test(test_lcd_clear),
-        unit_test(test_lcd_address_set),
+	    unit_test(test_lcd_clear),
+	    unit_test(test_lcd_address_set),
 		unit_test(test_lcd_write_data),
 		unit_test(test_lcd_init)
 	};

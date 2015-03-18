@@ -63,8 +63,14 @@ void lcd_draw_circle(
 				 * Draw  line from centre-x to centre+x
 				 * length is thus 2 * x
 				 */
-				lcd_draw_line_horiz(x1 - x, y1 - y, (2 * x), colour);
-				lcd_draw_line_horiz(x1 - x, y1 + y, (2 * x), colour);
+				lcd_draw_line_horiz(
+					x1 - x, y1 - y, (2 * x),
+					colour
+				);
+				lcd_draw_line_horiz(
+					x1 - x, y1 + y, (2 * x),
+					colour
+				);
 
 				break;
 			}
